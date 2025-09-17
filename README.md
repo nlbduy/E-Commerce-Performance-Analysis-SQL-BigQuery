@@ -84,7 +84,12 @@ ORDER BY month ASC;
 
 <img width="2000" height="714" alt="Image" src="https://github.com/user-attachments/assets/98b489d8-2d5a-4284-8113-a31378a703a9" />
 
-## 🔍 Bounce rate per traffic source (Jul 2017)
+**Visits** & **Pageviews**: Visits slightly **dropped in February** (-3.9%) and then **rebounded in March** (+12%). Similarly, Pageviews **declined in February** (-9.4%) before **increasing in March** (+11.2%).
+
+**Transactions**: Transactions **remained stable** in January and February, then **spiked in March** (+35.5% vs. February).
+
+
+## 🔍 Traffic Drivers and Bounce Rate per traffic source (Jul 2017)
 
 This step is to evaluate user engagement quality by traffic source. The result indicates which sources hold higher engagements (lower bounce rate) and which drive worse interactions (higher bounce rate).
 
@@ -113,6 +118,8 @@ ORDER BY total_visits DESC;
 ✔️ **Result**
 
 <img width="2000" height="1300" alt="Image" src="https://github.com/user-attachments/assets/7c6ff0bb-5e9c-42d1-a133-cae31a300e20" />
+
+**Google** and **Direct** were the **top traffic drivers** in July 2017, with bounce rates at 51.6% and 43.3% respectively.
 
 ## 🔍 Revenue by traffic source by week and month (Jun 2017)
 
@@ -174,6 +181,8 @@ ORDER BY time_type, total_revenue DESC;
 <img width="2000" height="835" alt="Image" src="https://github.com/user-attachments/assets/3d884a85-28bf-4956-bdd3-dc28f71fff8e" />
 <img width="2000" height="587" alt="Image" src="https://github.com/user-attachments/assets/18d79ddb-f8a7-4af0-ac9c-94bab19dd371" />
 
+In June 2017, **Direct traffic was the dominant revenue channel** ($97K monthly), far exceeding Google ($18.8K) and DFA ($8.9K). Weekly trends confirmed direct traffic as the consistent top performer, with Google as a secondary contributor and other sources showing negligible revenue.
+
 ## 🔍 Average pageviews by purchaser type (Jun–Jul 2017)
 
 This step is to compare engagement levels between purchasers and non-purchasers. The result helps assess whether purchasers tend to view more pages before converting than non-purchasers.
@@ -218,6 +227,8 @@ ORDER BY month;
 
 <img width="2000" height="577" alt="Image" src="https://github.com/user-attachments/assets/ef41349c-5b52-4d1f-af7f-8b81d6683e61" />
 
+**Purchasers engaged far more deeply than non-purchasers**, averaging 32 to 37 pageviews per session compared to only about 4 among non-purchasers.
+
 ## 🔍 Average number of transactions per purchaser (Jul 2017)
 
 This step is to measure purchasing intensity and customer loyalty. The result helps the business understand customer purchasing behaviors and evaluate the performance of marketing strategies.
@@ -259,6 +270,8 @@ GROUP BY month;
 
 <img width="2000" height="487" alt="Image" src="https://github.com/user-attachments/assets/64bcc2bb-1938-446b-8582-efd89df879f2" />
 
+- The average number of transactions per purchaser was **1.11** in July 2017. This indicates that most customers made only **one purchase during the month**, with only a small fraction making multiple purchases. The relatively low figure suggests that **purchasing intensity and customer loyalty are weak**, as customers are not frequently returning within the same period.
+
 ## 🔍 Average revenue per session for purchasers (Jul 2017)
 
 This step is to assess the value of a purchasing session. The result provides a benchmark to evaluate the marketing effectiveness when deploying any strategies to increase the quality of each session.
@@ -280,6 +293,8 @@ GROUP BY month;
 ✔️ **Result**
 
 <img width="2000" height="485" alt="Image" src="https://github.com/user-attachments/assets/ad348407-862f-4a98-a666-46ff2b04d247" />
+
+The **average revenue per session for purchasers** means that **each visit by a purchaser generates about 156 in revenue on average**, which is a relatively **strong monetization per session**. Compared to the earlier metric (average transactions per purchaser = **1.11**), we see that while customers are **not purchasing frequently**, they do tend to **spend a significant amount when they do purchase**.
 
 ## 🔍 Product affinity analysis for a specific item (Jul 2017)
 
@@ -318,6 +333,8 @@ ORDER BY quantity DESC;
 
 <img width="2000" height="1050" alt="Image" src="https://github.com/user-attachments/assets/2ac27d5d-87bf-427a-a20a-828a2eb2928b" />
 
+Purchasers of the **YouTube Men’s Vintage Henley** frequently paired it with related **apparel** (tees, hoodies) as well as **lifestyle items** (sunglasses and lip balm).
+
 ## 🔍 Funnel cohort from product-view → add-to-cart → purchase (Jan–Mar 2017)
 
 This step is to build a cohort map to track the user journey and measure conversion efficiency across funnel stages. The result reveals bottlenecks where users drop off.
@@ -353,14 +370,57 @@ SELECT
       , num_product_view
       , num_addtocart
       , num_purchase
-      , ROUND(100*num_addtocart/num_product_view,2) AS add_to_cart_rate -- product-view to add-to-cart
-      , ROUND(100*num_purchase/num_product_view,2) AS purchase_rate -- product-view to purchase
+      , ROUND(100*num_addtocart/num_product_view,2) AS view_to_cart_rate -- product-view to add-to-cart
+      , ROUND(100*num_purchase/num_addtocart,2) AS cart_to_purchase_rate -- add-to-cart to puchase
+      , ROUND(100*num_purchase/num_product_view,2) AS view_to_purchase_rate -- product-view to purchase
 FROM agg
 ORDER BY month;
 ```
 
 ✔️ **Result**
 
-<img width="2000" height="390" alt="Image" src="https://github.com/user-attachments/assets/5542487a-949c-4daf-8fee-1cafe59c32fa" />
+<img width="2000" height="385" alt="Image" src="https://github.com/user-attachments/assets/32412915-7dcc-4e81-8971-48cae7228d33" />
 
-# 💡 Insights and Recommendations
+<img width="2000" height="849" alt="Image" src="https://github.com/user-attachments/assets/524d1fd1-0126-4bcb-b59b-921d0e8c7dcd" />
+
+**Conversion uplift**: Despite a slight dip in **cart_to_purchase_rate** in February, both **view_to_cart_rate** and **view_to_purchase_rate** rates increased, showing better funnel efficiency.
+
+**March momentum**: March stands out with the highest **view_to_cart_rate** (37.3%) and **view_to_purchase_rate** (12.6%), suggesting either effective campaigns, promotions, or improved UX during checkout.
+
+**Bottleneck shift**: In January and February, the major drop-off happened at the checkout stage (**add-to-cart → purchase**). By March, the drop-off shrank, showing that checkout completion rate had improved.
+
+
+# 💡 Key Insights and Recommendations
+
+## 🌟 Key Insights
+
+- **Traffic vs. Conversions**: Traffic volume stayed relatively stable, but conversions spiked in March - suggesting campaigns, promotions, or seasonal effects as key drivers.
+- **Channel Performance**: Direct traffic is the dominant and most reliable revenue channel, while Google provides a larger volume of visits but weaker monetization.
+- **Customer Behavior**: Purchasers engage far more deeply than non-purchasers, but repeat purchase intensity remains low, which indicates that loyalty is weak.
+- **Revenue Dynamics**: Strong revenue per purchaser session shows customers spend big when they buy, but long-term growth depends more on increasing frequency than basket size.
+- **Funnel Efficiency**: Conversion funnel improved across Q1, with cart abandonment shrinking in March - a critical uplift for revenue growth.
+- **Product Affinity**: Henley shirts link strongly with apparel and lifestyle items, with hints of gifting or couples’ purchases.
+
+## 🚀 Recommendations
+
+1. **Channel Optimization**
+	- Prioritize investments in Direct and Google channels, given their strong revenue contribution and high traffic volume.
+	- Improve underperforming but promising channels by enhancing content relevance, refining targeting, and optimizing page load speed to reduce bounce rates.
+	- Reassess or phase out channels with consistently low traffic, high bounce rates, and minimal revenue impact.
+2. **Boost Repeat Purchases & Loyalty**
+	- Current revenue per session is strong, but the low purchase frequency indicates over-reliance on new customer acquisition.
+	- To drive sustainable growth, develop strategies to increase repeat purchases and nurture a loyal customer base.
+	- Potential approaches:
+		+ Launch personalized retention campaigns (e.g., email/SMS remarketing).
+		+ Introduce loyalty programs or rewards to incentivize return purchases.
+		+ Offer subscription models for key product categories.
+3. **Product Cross-Sell & Upsell**
+	- Identify purchasing patterns across high-performing products to design cross-sell and upsell strategies.
+	- Create bundles, combo offers, or add-on recommendations to increase average order value (AOV).
+4. **Strengthen Checkout Flow**
+	- Build on the positive momentum from March by further streamlining the checkout process.
+	- Key improvements: enable guest checkout, reduce the number of steps, and optimize for mobile.
+
+
+
+
